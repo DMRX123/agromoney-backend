@@ -1,6 +1,7 @@
 # ============================================================
 # CORE FRAMEWORK
 # ============================================================
+gunicorn==21.2.0
 Flask==3.0.3
 Flask-CORS==4.0.0
 Flask-SQLAlchemy==3.1.1
@@ -78,5 +79,4 @@ pytest-cov==5.0.0                # ✅ ADDED - For test coverage
 # Development Tools (optional)
 flake8==7.0.0                    # ✅ ADDED - For linting
 black==24.3.0                    # ✅ ADDED - For code formatting
-gunicorn==21.2.0
 # Force rebuild
