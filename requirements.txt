@@ -78,3 +78,4 @@ pytest-cov==5.0.0                # ✅ ADDED - For test coverage
 # Development Tools (optional)
 flake8==7.0.0                    # ✅ ADDED - For linting
 black==24.3.0                    # ✅ ADDED - For code formatting
+gunicorn==21.2.0
