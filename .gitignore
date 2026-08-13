@@ -1,10 +1,34 @@
+# Python virtual environment
+.venv/
 venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Python cache
 __pycache__/
-*.pyc
-.env
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Database
 *.db
+*.sqlite
 *.sqlite3
-*.log
+
+# Environment variables
+.env
+.flaskenv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
 .DS_Store
-uploads/
-instance/
+
+# Logs
+*.log
+*.pid
