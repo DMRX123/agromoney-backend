@@ -12,13 +12,14 @@ from datetime import datetime, timedelta
 import redis
 from app.config import Config, DevelopmentConfig, ProductionConfig
 
-# ✅ Import models at the top (FIXED)
-from app.models import User, PriceData, MarketProduct, Notification
-
+# ✅ Define db HERE first (before importing models)
 db = SQLAlchemy()
 migrate = Migrate()
 jwt = JWTManager()
 cors = CORS()
+
+# ✅ Now import models (db is already defined)
+from app.models import User, PriceData, MarketProduct, Notification
 
 
 def create_app(config_name=None):
@@ -97,15 +98,7 @@ def create_app(config_name=None):
             app.logger.info(f'Request: {request.method} {request.path}')
 
     # ✅ Initialize database with tables and admin user
-    init_db(app)
-
-    return app
-
-
-def init_db(app):
-    """Initialize database with tables and admin user"""
     with app.app_context():
-        # Create tables
         db.create_all()
         app.logger.info("✅ Database tables created/verified")
         
@@ -126,6 +119,8 @@ def init_db(app):
             app.logger.info("✅ Admin user created (Phone: 9999999999, OTP: 123456)")
         else:
             app.logger.info("✅ Admin user already exists")
+
+    return app
 
 
 from app.services import AgmarknetService, WeatherService, NotificationService
