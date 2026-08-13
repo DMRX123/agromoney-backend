@@ -12,6 +12,9 @@ from datetime import datetime, timedelta
 import redis
 from app.config import Config, DevelopmentConfig, ProductionConfig
 
+# ✅ Import models at the top (FIXED)
+from app.models import User, PriceData, MarketProduct, Notification
+
 db = SQLAlchemy()
 migrate = Migrate()
 jwt = JWTManager()
@@ -94,7 +97,6 @@ def create_app(config_name=None):
             app.logger.info(f'Request: {request.method} {request.path}')
 
     # ✅ Initialize database with tables and admin user
-    from app.models import User, PriceData, MarketProduct, Notification
     init_db(app)
 
     return app
