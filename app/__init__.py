@@ -93,13 +93,37 @@ def create_app(config_name=None):
         if not request.path.startswith('/static'):
             app.logger.info(f'Request: {request.method} {request.path}')
 
-    # ✅ IMPORTANT: Create tables on startup
+    # ✅ Initialize database with tables and admin user
     from app.models import User, PriceData, MarketProduct, Notification
-    with app.app_context():
-        db.create_all()
-        app.logger.info("✅ Database tables created/verified")
+    init_db(app)
 
     return app
+
+
+def init_db(app):
+    """Initialize database with tables and admin user"""
+    with app.app_context():
+        # Create tables
+        db.create_all()
+        app.logger.info("✅ Database tables created/verified")
+        
+        # Create admin user if not exists
+        admin = User.query.filter_by(phone='9999999999').first()
+        if not admin:
+            admin = User(
+                name='Admin',
+                phone='9999999999',
+                email='admin@agromoney.in',
+                district='Bhopal',
+                language='english',
+                is_admin=True,
+                is_active=True
+            )
+            db.session.add(admin)
+            db.session.commit()
+            app.logger.info("✅ Admin user created (Phone: 9999999999, OTP: 123456)")
+        else:
+            app.logger.info("✅ Admin user already exists")
 
 
 from app.services import AgmarknetService, WeatherService, NotificationService
